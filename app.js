@@ -11,10 +11,23 @@ const animate = (key) => {
   }, 300);
 };
 
+const playMusic = (path) => {
+  const audio = new Audio(path);
+  
+  audio.play();
+};
+
+const makeSound = (key) => {
+  const soundFilePath = `sounds/${key}.mp3`;
+
+  playMusic(soundFilePath);
+};
+
 const handleDrumClick = (event) => {
   const key = event.target.innerHTML;
 
   animate(key);
+  makeSound(key);
 };
 
 drums.forEach((drum) => {
