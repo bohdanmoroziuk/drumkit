@@ -6,11 +6,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Drumkit</title>
 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="main.css">
 
   <script defer src="app.js"></script>
 </head>
 <body>
   
+  <div class="container">
+    <h1 class="title">Drumkit</h1>
+
+    <div class="drum-set">
+      <button class="drum drum-w drum-circle">w</button>
+      <button class="drum drum-a">a</button>
+      <button class="drum drum-s">s</button>
+      <button class="drum drum-d drum-circle">d</button>
+      <button class="drum drum-j">j</button>
+      <button class="drum drum-k">k</button>
+      <button class="drum drum-l drum-circle">l</button>
+    </div>
+
+    <div class="volume-control">
+      <i class="volume-control-icon fa fa-volume-up fa-2x"></i>
+      <input class="volume-control-slider" type="range" name="volume" id="volume">
+    </div>
+
+    <div class="util-buttons">
+      <button class="util-button" id="start-auto-music">Start Auto Music</button>
+      <button class="util-button" id="change-theme">Change Theme</button>
+      <button class="util-button" id="change-background">Change Background</button>
+    </div>
+  </div>
+
 </body>
 </html>
