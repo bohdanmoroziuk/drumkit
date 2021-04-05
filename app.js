@@ -3,11 +3,25 @@ let audioVolume = 0.6;
 let autoMusicIntervalId = null;
 let autoMusicOn = false;
 
+let currentTheme = 'theme1';
+
+const theme1 = {
+  '--background-color': '#091921',
+  '--text-color': '#00fff1'
+};
+
+const theme2 = {
+  '--background-color': '#f7c340',
+  '--text-color': '#2d2d2d'
+};
+
 const drums = document.querySelectorAll('.drum');
 
 const volumeSlider = document.querySelector('#volume');
 
 const startAutoMusicButton = document.querySelector('#start-auto-music');
+
+const changeThemeButton = document.querySelector('#change-theme');
 
 const keys = Array.from(drums).map((drum) => drum.innerHTML);
 
@@ -55,6 +69,14 @@ const startAutoMusic = () => {
   }, 300);
 };
 
+const seTheme = (theme) => {
+  const rootStyle = document.documentElement.style;
+
+  Object.keys(theme).forEach((key) => {
+    rootStyle.setProperty(key, theme[key]);
+  });
+};
+
 const handleStartAutoMusicButtonClick = () => {
   if (autoMusicOn) {
     clearInterval(autoMusicIntervalId);
@@ -70,6 +92,23 @@ const handleStartAutoMusicButtonClick = () => {
   startAutoMusic();
 }; 
 
+const handleChangeThemeButtonClick = () => {
+  changeThemeButton.classList.add('pressed');
+
+  setTimeout(() => {
+    changeThemeButton.classList.remove('pressed');
+  }, 100);
+
+  if (currentTheme === 'theme1') {
+    currentTheme = 'theme2';
+    seTheme(theme2);
+  }
+  else {
+    currentTheme = 'theme1';
+    seTheme(theme1);
+  }
+};
+
 drums.forEach((drum) => {
   drum.addEventListener('click', handleDrumClick);
 });
@@ -77,3 +116,5 @@ drums.forEach((drum) => {
 volumeSlider.addEventListener('input', handleVolumeSliderInput);
 
 startAutoMusicButton.addEventListener('click', handleStartAutoMusicButtonClick);
+
+changeThemeButton.addEventListener('click', handleChangeThemeButtonClick);
