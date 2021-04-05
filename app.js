@@ -1,4 +1,12 @@
+let audioVolume = 0.6;
+
 const drums = document.querySelectorAll('.drum');
+
+const volumeSlider = document.querySelector('#volume');
+
+const handleVolumeSliderInput = (event) => {
+  audioVolume = event.target.value / 100;
+};
 
 const animate = (key) => {
   const selector = `.drum-${key}`;
@@ -14,6 +22,7 @@ const animate = (key) => {
 const playMusic = (path) => {
   const audio = new Audio(path);
   
+  audio.volume = audioVolume;
   audio.play();
 };
 
@@ -33,3 +42,5 @@ const handleDrumClick = (event) => {
 drums.forEach((drum) => {
   drum.addEventListener('click', handleDrumClick);
 });
+
+volumeSlider.addEventListener('input', handleVolumeSliderInput);
