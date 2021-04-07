@@ -15,6 +15,17 @@ const theme2 = {
   '--text-color': '#2d2d2d'
 };
 
+const sample = (array) => array[Math.floor(Math.random() * array.length)];
+
+const getDrumKey = (drum) => drum.innerHTML;
+
+const getDrumByKey = (key) => {
+  const selector = `.drum-${key}`;
+  const drum = document.querySelector(selector);
+
+  return drum;
+};
+
 const drums = document.querySelectorAll('.drum');
 
 const volumeSlider = document.querySelector('#volume');
@@ -23,21 +34,24 @@ const startAutoMusicButton = document.querySelector('#start-auto-music');
 
 const changeThemeButton = document.querySelector('#change-theme');
 
-const keys = Array.from(drums).map((drum) => drum.innerHTML);
+const keys = Array.from(drums).map(getDrumKey);
 
 const handleVolumeSliderInput = (event) => {
   audioVolume = event.target.value / 100;
 };
 
-const animate = (key) => {
-  const selector = `.drum-${key}`;
-  const drum = document.querySelector(selector);
-
-  drum.classList.add('pressed');
+const animate = (animationClassName, animationDuration, element) => {
+  element.classList.add(animationClassName);
 
   setTimeout(() => {
-    drum.classList.remove('pressed');
-  }, 300);
+    element.classList.remove(animationClassName);
+  }, animationDuration);  
+};
+
+const animateDrum = (key) => {
+  const drum = getDrumByKey(key);
+
+  animate('pressed', 300, drum);
 };
 
 const playMusic = (path) => {
@@ -54,17 +68,17 @@ const makeSound = (key) => {
 };
 
 const handleDrumClick = (event) => {
-  const key = event.target.innerHTML;
+  const key = getDrumKey(event.target);
 
-  animate(key);
+  animateDrum(key);
   makeSound(key);
 };
 
 const startAutoMusic = () => {
   autoMusicIntervalId = setInterval(() => {
-    const key = keys[Math.floor(Math.random() * keys.length)];
+    const key = sample(keys);
 
-    animate(key);
+    animateDrum(key);
     makeSound(key);
   }, 300);
 };
@@ -93,11 +107,7 @@ const handleStartAutoMusicButtonClick = () => {
 }; 
 
 const handleChangeThemeButtonClick = () => {
-  changeThemeButton.classList.add('pressed');
-
-  setTimeout(() => {
-    changeThemeButton.classList.remove('pressed');
-  }, 100);
+  animate('pressed', 100, changeThemeButton);
 
   if (currentTheme === 'theme1') {
     currentTheme = 'theme2';
